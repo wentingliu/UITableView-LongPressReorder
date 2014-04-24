@@ -28,5 +28,9 @@
 @property (nonatomic, assign, getter = isLongPressReorderEnabled) BOOL longPressReorderEnabled;
 @property (nonatomic, assign) id <LPRTableViewDelegate> lprDelegate;
 
+
+// Use to enable using Custom Cell
+@property (nonatomic, assign, getter = isLongPressReorderEnabled) BOOL useCustomCell;
+
 @end
 
