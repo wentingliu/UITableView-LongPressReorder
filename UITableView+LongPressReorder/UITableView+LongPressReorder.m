@@ -127,7 +127,7 @@
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         
         // Added - When using a Custom Cell while dragging the cell on the new row does not stay hidden (while dragging)
-        // Use only if you are using a Custom Cell. If not below tow lines need to commented out
+        // Use only if you are using a Custom Cell. If not below two lines need to commented out
         UITableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
         cell.hidden = YES;
         
