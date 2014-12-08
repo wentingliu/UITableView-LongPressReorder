@@ -23,6 +23,9 @@
 @property (nonatomic, strong) NSIndexPath *initialIndexPath;
 @property (nonatomic, strong) UIView *draggingView;
 
+// Use Custom Cell
+@property (nonatomic) BOOL useCustomCell;
+
 @end
 
 
@@ -38,6 +41,9 @@
         _canReorder = YES;
         _draggingViewOpacity = 0.85;
         _longPress.enabled = _canReorder;
+        
+        // Use Custom Cell
+        _useCustomCell = NO;
     }
     
     return self;
@@ -125,6 +131,12 @@
     }
     // dragging
     else if (gesture.state == UIGestureRecognizerStateChanged) {
+        // Added - When using a Custom Cell while dragging the cell on the new row does not stay hidden (while dragging)
+        if (_useCustomCell) {
+            UITableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+            cell.hidden = YES;
+        }
+        
         // update position of the drag view
         // don't let it go past the top or the bottom too far
         if (location.y >= 0 && location.y <= _tableView.contentSize.height + 50) {
@@ -303,6 +315,11 @@ static void *LPRProxyKey = &LPRProxyKey;
         objc_setAssociatedObject(self, LPRProxyKey, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return proxy;
+}
+
+// Use Custom Cell
+- (void)setUseCustomCell:(BOOL)useCustomCell {
+    [self lprProxy].useCustomCell = useCustomCell;
 }
 
 @end
