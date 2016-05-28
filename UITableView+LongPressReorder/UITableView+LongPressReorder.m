@@ -9,7 +9,7 @@
 #import <objc/runtime.h>
 
 
-// The basic idea is simple: we add a long press gesture to the tableView, once the gesture is activeated,
+// The basic idea is simple: we add a long press gesture to the tableView, once the gesture is activated,
 // a placeholder view is created for the pressed cell, then we move the placeholder view as the touch goes on.
 @interface LPRTableViewProxy : NSObject <LPRTableViewDelegate>
 
