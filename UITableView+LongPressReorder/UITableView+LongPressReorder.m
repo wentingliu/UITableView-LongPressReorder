@@ -125,6 +125,12 @@
     }
     // dragging
     else if (gesture.state == UIGestureRecognizerStateChanged) {
+        
+        // Added - When using a Custom Cell while dragging the cell on the new row does not stay hidden (while dragging)
+        // Use only if you are using a Custom Cell. If not below two lines need to commented out
+        UITableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+        cell.hidden = YES;
+        
         // update position of the drag view
         // don't let it go past the top or the bottom too far
         if (location.y >= 0 && location.y <= _tableView.contentSize.height + 50) {
