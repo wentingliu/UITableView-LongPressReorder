@@ -25,8 +25,11 @@
 
 @interface UITableView (LongPressReorder)
 
+@property (nonatomic, weak) id <LPRTableViewDelegate> lprDelegate;
 @property (nonatomic, assign, getter = isLongPressReorderEnabled) BOOL longPressReorderEnabled;
-@property (nonatomic, assign) id <LPRTableViewDelegate> lprDelegate;
+@property (nonatomic, assign, readonly) BOOL isLongPressReordering;
+@property (nonatomic, assign) CGFloat draggingViewScale;
+@property (nonatomic, assign) BOOL draggingViewIsCentered;
 
 @end
 
