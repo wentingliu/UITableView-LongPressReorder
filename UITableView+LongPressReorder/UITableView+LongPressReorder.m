@@ -130,6 +130,8 @@
         self.currentIndexPath = indexPath;
         self.initialIndexPath = indexPath;
         
+        [self tapticEngineFeedback];
+        
         // enable scrolling for cell
         [self startDisplayLinkUpdating];
     }
@@ -169,6 +171,7 @@
         
         // animate the drag view to the newly hovered cell
         if (_draggingView) {
+            [self tapticEngineFeedback];
             [UIView animateWithDuration:0.3
                              animations:^{
                                  if ([(id)_tableView.lprDelegate respondsToSelector:@selector(tableView:hideDraggingView:atIndexPath:)]) {
@@ -220,6 +223,8 @@
             NSLog(@"moveRowAtIndexPath:toIndexPath: is not implemented");
         }
         [_tableView endUpdates];
+        
+        [self tapticEngineFeedback];
         
         _currentIndexPath = newIndexPath;
     }
@@ -284,6 +289,18 @@
 - (void)removeDraggingView {
     [_draggingView removeFromSuperview];
     _draggingView = nil;
+}
+
+- (void)tapticEngineFeedback {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"10.0" options:NSNumericSearch] != NSOrderedAscending &&
+        [UIApplication sharedApplication].keyWindow.rootViewController.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        static UIImpactFeedbackGenerator *generator = nil;
+        if (!generator) {
+            generator = [UIImpactFeedbackGenerator new];
+            [generator prepare];
+        }
+        [generator impactOccurred];
+    }
 }
 
 @end
